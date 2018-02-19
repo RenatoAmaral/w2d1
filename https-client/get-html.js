@@ -1,8 +1,13 @@
 var https = require('https');
 
-function getAndPrintHTML (options) {
+
+
+function getHTML (options, callback) {
+
+
 
   https.get(options, function(response){
+
 
     var tmpData = "";
 
@@ -13,14 +18,19 @@ function getAndPrintHTML (options) {
     });
 
     response.on('end', function() {
-      console.log('All data received after buffering .....' + tmpData);
+     callback('All data received after buffering .....' + tmpData);
     });
 
   });
+
 };
 
-getAndPrintHTML({
+
+getHTML({
     host: 'sytantris.github.io',
     path: '/http-examples/step2.html'
-  });
+  }, printHTML);
 
+function printHTML (html) {
+  console.log(html);
+}
